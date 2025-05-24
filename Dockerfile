@@ -1,8 +1,8 @@
-FROM alpine
+FROM alpine:edge
+LABEL MAINTAINER "blockloop <noreply@blockloop.io>"
+ARG FRP_VERSION
 
-LABEL MAINTAINER "ZhangSean <zxf2342@qq.com>"
-
-ENV FRP_VERSION=v0.44.0
+RUN apk add --no-cache -u tini bash
 
 ADD entrypoint.sh /entrypoint.sh
 
@@ -22,4 +22,5 @@ WORKDIR /frp
 
 EXPOSE 6000 7000
 
+ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/frp/entrypoint.sh"]
